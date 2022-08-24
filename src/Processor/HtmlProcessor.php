@@ -50,9 +50,15 @@ class HtmlProcessor
             }
         }
 
-        return $selectors[Type::SELECTOR_BLOCK][trim($block->getNameInLayout())]
-            ?? $selectors[Type::SELECTOR_TEMPLATE][trim($block->getTemplate())]
-            ?? false;
+        if ($block->getNameInLayout() && isset($selectors[Type::SELECTOR_BLOCK][trim($block->getNameInLayout())]) && $selectors[Type::SELECTOR_BLOCK][trim($block->getNameInLayout())]) {
+            return $selectors[Type::SELECTOR_BLOCK][trim($block->getNameInLayout())];
+        }
+
+        if ($block->getTemplate() && isset($selectors[Type::SELECTOR_TEMPLATE][trim($block->getTemplate())]) && $selectors[Type::SELECTOR_TEMPLATE][trim($block->getTemplate())]) {
+            return $selectors[Type::SELECTOR_TEMPLATE][trim($block->getTemplate())];
+        }
+
+        return false;
     }
 
     /**
